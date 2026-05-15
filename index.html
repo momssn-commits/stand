@@ -442,10 +442,6 @@
           <label for="f-tel">Téléphone <span class="req">*</span></label>
           <input type="tel" id="f-tel" name="tel" autocomplete="tel" />
         </div>
-        <div class="field">
-          <label for="f-ville">Ville</label>
-          <input type="text" id="f-ville" name="ville" autocomplete="address-level2" />
-        </div>
 
         <div class="modal-actions">
           <button type="submit" class="btn btn-gold" id="submit-btn">Confirmer mon inscription</button>
@@ -690,7 +686,6 @@ regForm.addEventListener("submit", async (e) => {
   const nom    = document.getElementById("f-nom").value.trim();
   const email  = document.getElementById("f-email").value.trim();
   const tel    = document.getElementById("f-tel").value.trim();
-  const ville  = document.getElementById("f-ville").value.trim();
 
   // Validation côté client
   if (!prenom || !nom || !email || !tel) {
@@ -709,7 +704,6 @@ regForm.addEventListener("submit", async (e) => {
     "Nom":       nom,
     "Email":     email,
     "Téléphone": tel,
-    "Ville":     ville,
     "Stand":     currentCard.nom + " (" + currentCard.region + ")"
   };
 
