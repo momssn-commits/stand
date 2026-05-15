@@ -276,6 +276,9 @@
 
   /* ---- CHAMPS DU FORMULAIRE ---- */
   .field { text-align: left; margin-bottom: 14px; }
+  /* Deux champs côte à côte (prénom + nom) */
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
   .field label {
     display: block;
     font-size: 0.8rem;
@@ -421,13 +424,15 @@
       <div class="m-region" id="modal-region">Région</div>
 
       <form id="reg-form" novalidate>
-        <div class="field">
-          <label for="f-prenom">Prénom <span class="req">*</span></label>
-          <input type="text" id="f-prenom" name="prenom" autocomplete="given-name" />
-        </div>
-        <div class="field">
-          <label for="f-nom">Nom <span class="req">*</span></label>
-          <input type="text" id="f-nom" name="nom" autocomplete="family-name" />
+        <div class="field-row">
+          <div class="field">
+            <label for="f-prenom">Prénom <span class="req">*</span></label>
+            <input type="text" id="f-prenom" name="prenom" autocomplete="given-name" />
+          </div>
+          <div class="field">
+            <label for="f-nom">Nom <span class="req">*</span></label>
+            <input type="text" id="f-nom" name="nom" autocomplete="family-name" />
+          </div>
         </div>
         <div class="field">
           <label for="f-email">Email <span class="req">*</span></label>
