@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Amicale Téranga France — 1 an déjà · Stands culturels</title>
+
+<!-- Google Fonts : Cormorant Garamond (titres) + DM Sans (texte) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ====================================================================
+     PALETTE & VARIABLES
+     ==================================================================== */
+  :root {
+    --bg-1:        #1A1A18;   /* fond principal noir profond */
+    --bg-2:        #242420;   /* fond secondaire             */
+    --bg-3:        #2E2E2A;   /* fond secondaire clair       */
+    --gold:        #C9A84C;   /* accent doré                 */
+    --gold-light:  #E8D5A3;   /* doré clair                  */
+    --text:        #F0EDE6;   /* texte principal             */
+    --text-mute:   #9A9890;   /* texte atténué               */
+    --text-faint:  #5A5A55;   /* texte très discret          */
+    --success:     #4CAF72;   /* couleur de succès           */
+    --radius:      14px;
+  }
+
+  /* ====================================================================
+     RESET DE BASE
+     ==================================================================== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: var(--text);
+    background-color: var(--bg-1);
+    /* Dégradés radiaux dorés subtils en arrière-plan */
+    background-image:
+      radial-gradient(ellipse 60% 50% at 15% 0%,  rgba(201,168,76,0.10), transparent 60%),
+      radial-gradient(ellipse 50% 45% at 90% 12%, rgba(201,168,76,0.07), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 50% 110%, rgba(201,168,76,0.06), transparent 60%);
+    background-attachment: fixed;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====================================================================
+     LAYOUT GÉNÉRAL
+     ==================================================================== */
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 18px 64px;
+  }
+
+  /* ---- EN-TÊTE ---- */
+  header {
+    text-align: center;
+    padding: 56px 18px 36px;
+  }
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+  .brand .gold {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .subtitle {
+    margin-top: 6px;
+    font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .tagline {
+    margin-top: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.05rem, 3vw, 1.4rem);
+    color: var(--gold-light);
+  }
+  .hint-badge {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.32);
+    border-radius: 999px;
+  }
+
+  /* ---- LIBELLÉ DE SECTION ---- */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 22px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-label::before,
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.35), transparent);
+  }
+
+  /* ====================================================================
+     GRILLE DE CARTES
+     ==================================================================== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);   /* 2 colonnes sur mobile */
+    gap: 16px;
+  }
+  @media (min-width: 680px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+  /* ---- CARTE ---- */
+  .card {
+    background: var(--bg-2);
+    border: 1px solid rgba(201,168,76,0.16);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Légère animation hover : translation -2px + lueur dorée */
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201,168,76,0.4);
+    box-shadow: 0 8px 26px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.12);
+  }
+  .card:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .card .flag {
+    font-size: 2.6rem;
+    line-height: 1;
+  }
+  .card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .card .region {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  /* ---- ZONE DÉPLIABLE DE LA CARTE ---- */
+  .card .reveal {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .4s ease, opacity .35s ease, margin-top .35s ease;
+    width: 100%;
+  }
+  .card.open {
+    cursor: default;
+    background: var(--bg-3);
+    border-color: rgba(201,168,76,0.4);
+  }
+  .card.open .reveal {
+    max-height: 360px;
+    opacity: 1;
+    margin-top: 12px;
+  }
+  .card .desc {
+    font-size: 0.88rem;
+    color: var(--text-mute);
+    border-top: 1px solid rgba(201,168,76,0.16);
+    padding-top: 12px;
+  }
+
+  /* ---- BOUTONS ---- */
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    cursor: pointer;
+    transition: filter .2s ease, transform .15s ease, background .25s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #2A2310;
+  }
+  .btn-gold:hover { filter: brightness(1.08); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-mute);
+    border: 1px solid rgba(154,152,144,0.35);
+  }
+  .btn-secondary:hover { color: var(--text); border-color: var(--text-mute); }
+
+  .btn-joined {
+    background: rgba(76,175,114,0.16);
+    color: var(--success);
+    border: 1px solid rgba(76,175,114,0.5);
+    cursor: default;
+  }
+
+  .card .join-btn { margin-top: 12px; width: 100%; }
+
+  /* ====================================================================
+     MODALE
+     ==================================================================== */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.78);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    z-index: 100;
+  }
+  .overlay.show { display: flex; }
+
+  .modal {
+    background: var(--bg-2);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 24px 24px;
+    text-align: center;
+    animation: slideUp .35s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal .m-flag { font-size: 3.4rem; line-height: 1; }
+  .modal .m-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .modal .m-region {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 18px;
+  }
+
+  /* ---- CHAMPS DU FORMULAIRE ---- */
+  .field { text-align: left; margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-mute);
+    margin-bottom: 5px;
+  }
+  .field label .req { color: var(--gold); }
+  .field input {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg-1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 11px 12px;
+    transition: border-color .2s ease;
+  }
+  .field input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  /* ---- ÉCRAN DE CONFIRMATION DANS LA MODALE ---- */
+  .confirm-screen { display: none; }
+  .confirm-screen .check { font-size: 3.4rem; }
+  .confirm-screen .c-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    color: var(--success);
+    margin: 8px 0 10px;
+  }
+  .confirm-screen .c-msg {
+    font-size: 0.92rem;
+    color: var(--text-mute);
+    margin-bottom: 20px;
+  }
+
+  /* ====================================================================
+     SECTION INSCRIPTIONS CONFIRMÉES
+     ==================================================================== */
+  .registrations {
+    margin-top: 24px;
+    background: var(--bg-2);
+    border: 1px solid rgba(201,168,76,0.16);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+  }
+  .registrations h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+  }
+  #reg-list { list-style: none; }
+  #reg-list li {
+    font-size: 0.95rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    color: var(--text);
+  }
+  #reg-list li:last-child { border-bottom: none; }
+  #reg-list li .ok { color: var(--success); font-weight: 700; margin-right: 6px; }
+  #reg-list li .reg-stand { color: var(--gold); }
+  .empty-note { color: var(--text-faint); font-style: italic; }
+
+  /* ---- PIED DE PAGE ---- */
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  /* ====================================================================
+     TOAST (messages d'erreur discrets)
+     ==================================================================== */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(120%);
+    background: var(--bg-3);
+    color: var(--text);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 12px 22px;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform .35s ease;
+    z-index: 200;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============================ EN-TÊTE ============================ -->
+  <header>
+    <h1 class="brand">Amicale <span class="gold">Téranga</span> France</h1>
+    <p class="subtitle">1 an déjà · Stands culturels</p>
+    <p class="tagline">« Remobilisation de tous les facteurs de cohésion »</p>
+    <span class="hint-badge">Touche une carte pour en savoir plus</span>
+  </header>
+
+  <!-- Les trois sections de cartes sont générées dynamiquement ici -->
+  <main id="sections"></main>
+
+  <!-- ==================== INSCRIPTIONS CONFIRMÉES ==================== -->
+  <section class="registrations" aria-live="polite">
+    <h2>Inscriptions confirmées</h2>
+    <ul id="reg-list">
+      <li class="empty-note">Aucune inscription pour l'instant.</li>
+    </ul>
+  </section>
+
+  <!-- ============================ PIED ============================ -->
+  <footer>
+    Amicale Téranga France · 1 an déjà !
+  </footer>
+
+</div>
+
+<!-- ============================ MODALE ============================ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+
+  <div class="modal" id="modal">
+
+    <!-- Vue formulaire -->
+    <div class="form-screen" id="form-screen">
+      <div class="m-flag" id="modal-flag" aria-hidden="true">🇸🇳</div>
+      <div class="m-name" id="modal-name">Stand</div>
+      <div class="m-region" id="modal-region">Région</div>
+
+      <form id="reg-form" novalidate>
+        <div class="field">
+          <label for="f-prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="f-prenom" name="prenom" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="f-nom">Nom <span class="req">*</span></label>
+          <input type="text" id="f-nom" name="nom" autocomplete="family-name" />
+        </div>
+        <div class="field">
+          <label for="f-ville">Ville</label>
+          <input type="text" id="f-ville" name="ville" autocomplete="address-level2" />
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-gold" id="submit-btn">Confirmer mon inscription</button>
+          <button type="button" class="btn btn-secondary" id="cancel-btn">Annuler</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Vue confirmation -->
+    <div class="confirm-screen" id="confirm-screen">
+      <div class="check" aria-hidden="true">✅</div>
+      <div class="c-title">Inscription confirmée !</div>
+      <div class="c-msg" id="confirm-msg"></div>
+      <button type="button" class="btn btn-gold" id="close-confirm">Fermer</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================ TOAST ============================ -->
+<div class="toast" id="toast" role="alert"></div>
+
+<script>
+/* ======================================================================
+   CONFIGURATION — modifie ici l'endpoint Formspree si besoin
+   ====================================================================== */
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xlgzqnww";
+
+/* ======================================================================
+   DONNÉES DES STANDS
+   ====================================================================== */
+const SECTIONS = [
+  {
+    label: "Communautés sénégalaises",
+    cards: [
+      { nom: "Stand Diola",  region: "Casamance",   flag: "🇸🇳",
+        desc: "Peuple du sud du Sénégal, les Diolas sont reconnus pour leurs traditions de riziculture, leur musique et leurs tenues colorées." },
+      { nom: "Stand Sérère", region: "Sine-Saloum", flag: "🇸🇳",
+        desc: "L'un des plus anciens peuples du Sénégal, célèbres pour leur cosmogonie, leur résistance et la lutte sénégalaise." },
+      { nom: "Stand Lébou",  region: "Dakar",       flag: "🇸🇳",
+        desc: "Pêcheurs originaires de la presqu'île du Cap-Vert, premiers habitants de Dakar, gardiens de traditions marines." },
+      { nom: "Stand Peulh",  region: "Fouta Toro",  flag: "🇸🇳",
+        desc: "Grands pasteurs nomades d'Afrique de l'Ouest, connus pour leur élégance, leur langue Fulfulde et leur culture pastorale." },
+      { nom: "Stand Maure",  region: "Saint-Louis", flag: "🇸🇳",
+        desc: "Commerçants et lettrés islamisés du nord du Sénégal, mêlant culture arabe et traditions sahariennes." }
+    ]
+  },
+  {
+    label: "Pays africains frères",
+    cards: [
+      { nom: "Cap-Vert",      region: "Afrique de l'Ouest", flag: "🇨🇻",
+        desc: "Archipel atlantique à la croisée des cultures africaine et portugaise, berceau de la morna et du sodade." },
+      { nom: "Togo",          region: "Afrique de l'Ouest", flag: "🇹🇬",
+        desc: "Pays aux traditions vaudou et aux artisans renommés, diversité ethnique et cuisine savoureuse." },
+      { nom: "Côte d'Ivoire", region: "Afrique de l'Ouest", flag: "🇨🇮",
+        desc: "Puissance économique ouest-africaine, terre du coupé-décalé, du café et d'une hospitalité légendaire." },
+      { nom: "Bénin",         region: "Afrique de l'Ouest", flag: "🇧🇯",
+        desc: "Berceau du vaudou et du royaume du Dahomey, terre d'histoire, d'art royal et de sagesse ancestrale." },
+      { nom: "Congo",         region: "Afrique centrale",   flag: "🇨🇬",
+        desc: "Pays de la rumba congolaise et des sapeurs élégants, énergie musicale et artistique incomparable." },
+      { nom: "Niger",         region: "Sahel",              flag: "🇳🇪",
+        desc: "Pays du Sahel aux paysages grandioses, riche de cultures touareg, haoussa et peulh." },
+      { nom: "Nigéria",       region: "Afrique de l'Ouest", flag: "🇳🇬",
+        desc: "Géant africain, berceau de l'Afrobeats et de Nollywood, créativité et énergie sans égal." }
+    ]
+  },
+  {
+    label: "Diasporas & régions",
+    cards: [
+      { nom: "Italia",     region: "Méditerranée",   flag: "🇮🇹",
+        desc: "Entre pasta, dolce vita et mode, les Italo-sénégalais apportent une touche méditerranéenne chaleureuse." },
+      { nom: "Guadeloupe", region: "Antilles",       flag: "🇬🇵",
+        desc: "Île des Antilles françaises, rythmes gwoka, épices et culture créole vibrante." },
+      { nom: "Inde",       region: "Asie du Sud",    flag: "🇮🇳",
+        desc: "Civilisation millénaire, épices envoûtantes, danse bharatanatyam et sagesse." },
+      { nom: "Nantais",    region: "Nantes",         flag: "🏙️",
+        desc: "Communauté sénégalaise de Nantes, ville des ducs, ancrage breton-atlantique." },
+      { nom: "Breton",     region: "Bretagne",       flag: "⚓",
+        desc: "Terre de marins et de traditions celtiques, attachement profond à la mer comme le Sénégal." },
+      { nom: "Paris",      region: "Île-de-France",  flag: "🗼",
+        desc: "Capitale de la diaspora sénégalaise en France, cœur battant de la communauté Téranga en Europe." }
+    ]
+  }
+];
+
+/* ======================================================================
+   ÉTAT & PERSISTANCE (localStorage)
+   ====================================================================== */
+const STORAGE_KEY = "teranga-inscriptions";
+
+// Chargement des inscriptions enregistrées lors des visites précédentes
+let registrations = [];
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) registrations = JSON.parse(saved);
+} catch (err) {
+  registrations = [];   // stockage indisponible ou données corrompues
+}
+
+let currentCard = null;     // donnée du stand en cours d'inscription
+let currentBtn  = null;     // bouton "Je rejoins" associé
+
+// Sauvegarde la liste des inscriptions dans le navigateur
+function saveRegistrations() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(registrations));
+  } catch (err) {
+    /* stockage indisponible : la liste reste seulement en mémoire */
+  }
+}
+
+/* ======================================================================
+   RENDU DES SECTIONS ET CARTES
+   ====================================================================== */
+const sectionsEl = document.getElementById("sections");
+
+SECTIONS.forEach((section) => {
+  // Libellé doré de section
+  const labelEl = document.createElement("div");
+  labelEl.className = "section-label";
+  labelEl.textContent = section.label;
+  sectionsEl.appendChild(labelEl);
+
+  // Grille de cartes
+  const grid = document.createElement("div");
+  grid.className = "grid";
+
+  section.cards.forEach((card) => {
+    const cardEl = document.createElement("div");
+    cardEl.className = "card";
+    cardEl.tabIndex = 0;                         // accessible au clavier
+    cardEl.setAttribute("role", "button");
+    cardEl.setAttribute("aria-label", "Découvrir " + card.nom);
+
+    cardEl.innerHTML = `
+      <div class="flag" aria-hidden="true">${card.flag}</div>
+      <div class="name">${card.nom}</div>
+      <div class="region">${card.region}</div>
+      <div class="reveal">
+        <p class="desc">${card.desc}</p>
+        <button type="button" class="btn btn-gold join-btn">Je rejoins ce stand</button>
+      </div>
+    `;
+
+    // Ouverture / fermeture de la carte au clic
+    cardEl.addEventListener("click", (e) => {
+      // Le clic sur le bouton "Je rejoins" ne doit pas refermer la carte
+      if (e.target.closest(".join-btn")) return;
+      cardEl.classList.toggle("open");
+    });
+    // Activation au clavier (Entrée / Espace)
+    cardEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        cardEl.classList.toggle("open");
+      }
+    });
+
+    // Bouton "Je rejoins ce stand" -> ouvre la modale
+    const joinBtn = cardEl.querySelector(".join-btn");
+    joinBtn.addEventListener("click", () => openModal(card, joinBtn));
+
+    // Si une inscription à ce stand existe déjà (visite précédente),
+    // le bouton apparaît directement comme "Inscrit"
+    if (registrations.some((r) => r.stand === card.nom)) {
+      markButtonJoined(joinBtn);
+    }
+
+    grid.appendChild(cardEl);
+  });
+
+  sectionsEl.appendChild(grid);
+});
+
+/* ======================================================================
+   GESTION DE LA MODALE
+   ====================================================================== */
+const overlay       = document.getElementById("overlay");
+const formScreen    = document.getElementById("form-screen");
+const confirmScreen = document.getElementById("confirm-screen");
+const regForm       = document.getElementById("reg-form");
+const submitBtn     = document.getElementById("submit-btn");
+
+function openModal(card, btn) {
+  currentCard = card;
+  currentBtn  = btn;
+
+  // Remplissage de l'en-tête de la modale
+  document.getElementById("modal-flag").textContent   = card.flag;
+  document.getElementById("modal-name").textContent   = card.nom;
+  document.getElementById("modal-region").textContent = card.region;
+
+  // Réinitialisation : on affiche le formulaire, on masque la confirmation
+  formScreen.style.display    = "block";
+  confirmScreen.style.display = "none";
+  regForm.reset();
+  submitBtn.disabled    = false;
+  submitBtn.textContent = "Confirmer mon inscription";
+
+  overlay.classList.add("show");
+  document.getElementById("f-prenom").focus();
+}
+
+function closeModal() {
+  overlay.classList.remove("show");
+  currentCard = null;
+  currentBtn  = null;
+}
+
+document.getElementById("cancel-btn").addEventListener("click", closeModal);
+document.getElementById("close-confirm").addEventListener("click", closeModal);
+
+// Fermeture en cliquant sur le fond sombre
+overlay.addEventListener("click", (e) => {
+  if (e.target === overlay) closeModal();
+});
+// Fermeture avec la touche Échap
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && overlay.classList.contains("show")) closeModal();
+});
+
+/* ======================================================================
+   TOAST
+   ====================================================================== */
+const toastEl = document.getElementById("toast");
+let toastTimer = null;
+
+function showToast(message) {
+  toastEl.textContent = message;
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3600);
+}
+
+/* ======================================================================
+   SOUMISSION DU FORMULAIRE
+   ====================================================================== */
+regForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const prenom = document.getElementById("f-prenom").value.trim();
+  const nom    = document.getElementById("f-nom").value.trim();
+  const ville  = document.getElementById("f-ville").value.trim();
+
+  // Validation côté client
+  if (!prenom || !nom) {
+    showToast("Merci d'indiquer ton prénom et ton nom.");
+    return;
+  }
+
+  // Préparation des données envoyées à Formspree
+  const payload = {
+    "Prénom": prenom,
+    "Nom":    nom,
+    "Ville":  ville,
+    "Stand":  currentCard.nom + " (" + currentCard.region + ")"
+  };
+
+  submitBtn.disabled    = true;
+  submitBtn.textContent = "Envoi en cours…";
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) throw new Error("Réponse non OK");
+
+    // ---- Succès ----
+    const fullName  = prenom + " " + nom;
+    const standName = currentCard.nom;
+
+    // 1. Écran de confirmation
+    document.getElementById("confirm-msg").textContent =
+      fullName + " a rejoint le " + standName +
+      ". Les organisateurs ont été notifiés par email.";
+    formScreen.style.display    = "none";
+    confirmScreen.style.display = "block";
+
+    // 2. Transformation du bouton de la carte
+    if (currentBtn) markButtonJoined(currentBtn);
+
+    // 3. Mise à jour de la liste des inscriptions confirmées
+    registrations.push({ name: fullName, stand: standName });
+    saveRegistrations();
+    renderRegistrations();
+
+  } catch (err) {
+    // ---- Erreur réseau ----
+    showToast("Erreur, réessaie.");
+    submitBtn.disabled    = false;
+    submitBtn.textContent = "Confirmer mon inscription";
+  }
+});
+
+/* ======================================================================
+   TRANSFORMATION D'UN BOUTON EN "INSCRIT"
+   ====================================================================== */
+function markButtonJoined(btn) {
+  btn.textContent = "✓ Inscrit !";
+  btn.classList.remove("btn-gold");
+  btn.classList.add("btn-joined");
+  btn.disabled = true;
+}
+
+/* ======================================================================
+   RENDU DE LA LISTE DES INSCRIPTIONS
+   ====================================================================== */
+const regListEl = document.getElementById("reg-list");
+
+function renderRegistrations() {
+  regListEl.innerHTML = "";
+
+  if (registrations.length === 0) {
+    const li = document.createElement("li");
+    li.className = "empty-note";
+    li.textContent = "Aucune inscription pour l'instant.";
+    regListEl.appendChild(li);
+    return;
+  }
+
+  registrations.forEach((r) => {
+    const li = document.createElement("li");
+    li.innerHTML =
+      `<span class="ok">✓</span>${r.name} — <span class="reg-stand">${r.stand}</span>`;
+    regListEl.appendChild(li);
+  });
+}
+
+// Affichage initial : restaure les inscriptions des visites précédentes
+renderRegistrations();
+</script>
+
+</body>
+</html>
