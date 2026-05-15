@@ -430,6 +430,14 @@
           <input type="text" id="f-nom" name="nom" autocomplete="family-name" />
         </div>
         <div class="field">
+          <label for="f-email">Email <span class="req">*</span></label>
+          <input type="email" id="f-email" name="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="f-tel">Téléphone <span class="req">*</span></label>
+          <input type="tel" id="f-tel" name="tel" autocomplete="tel" />
+        </div>
+        <div class="field">
           <label for="f-ville">Ville</label>
           <input type="text" id="f-ville" name="ville" autocomplete="address-level2" />
         </div>
@@ -675,20 +683,29 @@ regForm.addEventListener("submit", async (e) => {
 
   const prenom = document.getElementById("f-prenom").value.trim();
   const nom    = document.getElementById("f-nom").value.trim();
+  const email  = document.getElementById("f-email").value.trim();
+  const tel    = document.getElementById("f-tel").value.trim();
   const ville  = document.getElementById("f-ville").value.trim();
 
   // Validation côté client
-  if (!prenom || !nom) {
-    showToast("Merci d'indiquer ton prénom et ton nom.");
+  if (!prenom || !nom || !email || !tel) {
+    showToast("Merci de remplir prénom, nom, email et téléphone.");
+    return;
+  }
+  // Vérification basique du format de l'email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast("Merci d'indiquer un email valide.");
     return;
   }
 
   // Préparation des données envoyées à Formspree
   const payload = {
-    "Prénom": prenom,
-    "Nom":    nom,
-    "Ville":  ville,
-    "Stand":  currentCard.nom + " (" + currentCard.region + ")"
+    "Prénom":    prenom,
+    "Nom":       nom,
+    "Email":     email,
+    "Téléphone": tel,
+    "Ville":     ville,
+    "Stand":     currentCard.nom + " (" + currentCard.region + ")"
   };
 
   submitBtn.disabled    = true;
