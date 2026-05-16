@@ -91,6 +91,16 @@
   .summary-item { font-size: 13px; color: var(--text-muted); line-height: 2; }
   .summary-item span { color: var(--gold); margin-right: 6px; }
 
+  /* Bloc groupe WhatsApp */
+  .whatsapp-block { margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(37,211,102,0.3); border-radius: var(--radius); background: rgba(37,211,102,0.05); text-align: center; }
+  .whatsapp-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .whatsapp-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+  .whatsapp-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5; }
+  .whatsapp-btn { display: inline-block; padding: 10px 24px; border-radius: 20px; background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.4); color: #25D366; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .whatsapp-btn:hover { background: rgba(37,211,102,0.25); border-color: #25D366; }
+  .wa-join-btn { display: inline-block; margin-top: 1rem; padding: 10px 24px; border-radius: 20px; background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.4); color: #25D366; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; }
+  .wa-join-btn:hover { background: rgba(37,211,102,0.25); border-color: #25D366; }
+
   .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--dark3); border: 1px solid var(--border-hover); border-radius: 30px; padding: 0.65rem 1.4rem; font-size: 12px; color: var(--gold-light); opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 999; white-space: nowrap; }
   .toast.show { opacity: 1; }
   footer { text-align: center; margin-top: 3rem; font-size: 11px; color: var(--text-faint); letter-spacing: 0.05em; }
@@ -149,6 +159,13 @@
     <div id="summaryContent"><p class="summary-empty">Aucune inscription pour l'instant.</p></div>
   </div>
 
+  <div class="whatsapp-block">
+    <div class="whatsapp-icon">💬</div>
+    <div class="whatsapp-title">Rejoins notre groupe WhatsApp</div>
+    <div class="whatsapp-sub">Reste informé de toutes les activités de l'Amicale Téranga France</div>
+    <a href="https://chat.whatsapp.com/BtGsp0P825Z13CQ8L3cQIs?mode=gi_t" target="_blank" rel="noopener" class="whatsapp-btn">Rejoindre le groupe</a>
+  </div>
+
   <footer>Amicale Téranga France · 1 an déjà !</footer>
 </div>
 
@@ -175,6 +192,7 @@
     <div class="modal-success" id="modalSuccess" style="display:none">
       <div class="check">✅</div>
       <p>Inscription confirmée !<br><strong id="successName"></strong><br>a rejoint le<br><strong id="successStand"></strong><br><br>Les organisateurs ont été notifiés par email.</p>
+      <a class="wa-join-btn" href="https://chat.whatsapp.com/BtGsp0P825Z13CQ8L3cQIs?mode=gi_t" target="_blank" rel="noopener">💬 Rejoindre le groupe WhatsApp</a>
       <button class="btn-cancel" onclick="closeModal()" style="margin-top:1rem">Fermer</button>
     </div>
   </div>
